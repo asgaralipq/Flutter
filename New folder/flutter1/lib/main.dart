@@ -1,37 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter1/GooglePixel44XL1.dart';
+import 'package:audioplayers/audio_cache.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MusicalApp());
+}
 
-class MyApp extends StatelessWidget {
+class MusicalApp extends StatelessWidget {
+
+  void soundPlay(int v){
+    final p=AudioCache();
+    p.play("note$v.wav");
+  }
+
+
+  Expanded createWidget({Color c,int n}){
+    return Expanded(
+      child: FlatButton(
+        color: c,
+        onPressed: (){
+          soundPlay(n);
+        },
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MyShop',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: GooglePixel44XL1(),
-    );
-  }
-}
+      home: Scaffold(
+        body: SafeArea(child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            createWidget(c:Colors.indigo,n:1),
+            createWidget(c:Colors.blue,n:2),
+            createWidget(c:Colors.green,n:3),
+            createWidget(c:Colors.yellow,n:4),
+            createWidget(c:Colors.orange,n:5),
+            createWidget(c:Colors.red,n:6),
+            createWidget(c:Colors.purple,n:7),
 
-class MyHomePage extends StatefulWidget {
-    @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('MyShop'),
+          ],
+        ),
+        ),
       ),
-      body: Center(
-        child: Text('Let\'s build a shop!'),
-      ),
+
     );
   }
 }
